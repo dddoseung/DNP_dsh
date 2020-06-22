@@ -18,3 +18,5 @@ bundle exec rake db:migrate
 rails s -b 0.0.0.0 -p 3000
 
 --------------------------
+
+용량 너무 클 때 tmp/cache 
