@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+소프트웨어 공학 및 설계 개인 프로젝트
+Dongguk NEWS Portal 2017112179 도승현
 
-Things you may want to cover:
+---------------------------
+매뉴얼 및 시연 동영상 링크 : 
 
-* Ruby version
+https://www.youtube.com/watch?v=2NbUWZEnHFg
+--------------------------
 
-* System dependencies
+실행 시 터미널에 입력 
 
-* Configuration
+bundle install
 
-* Database creation
+bundle exec rake db:migrate
 
-* Database initialization
+rails s -b 0.0.0.0 -p 3000
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+--------------------------
