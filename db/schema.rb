@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_21_064906) do
+ActiveRecord::Schema.define(version: 2019_06_10_041659) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "user_id"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(version: 2018_05_21_064906) do
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_comments_on_post_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "dislikes", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["post_id"], name: "index_dislikes_on_post_id"
+    t.index ["user_id"], name: "index_dislikes_on_user_id"
   end
 
   create_table "follows", force: :cascade do |t|
@@ -50,9 +59,20 @@ ActiveRecord::Schema.define(version: 2018_05_21_064906) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "posts_tags", id: false, force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "tag_id", null: false
+  create_table "posts_{:id=>false}", id: false, force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "{:id=>false}_id", null: false
+    t.integer "tag_id"
+    t.index ["post_id", "tag_id"], name: "index_posts_{:id=>false}_on_post_id_and_tag_id"
+    t.index ["post_id"], name: "index_posts_{:id=>false}_on_post_id"
+    t.index ["tag_id", "post_id"], name: "index_posts_{:id=>false}_on_tag_id_and_post_id"
+    t.index ["tag_id"], name: "index_posts_{:id=>false}_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

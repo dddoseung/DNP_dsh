@@ -1,6 +1,22 @@
 <div class="container">
 	<div class="row">
+		
+		<div class="col s12 m8">
+			<font size='5em'>
+			<p><b>NEWS 목록</b></p>
+			</font>
+			<%= form_tag posts_path, multipart: true do %>
+                        <!-- file 태그 추가 -->
+
+                    <% end %>
+			<% @posts.each do |post| %>
+				<%= render partial: "post", object: post %>
+			<% end %>
+		</div>
 		<div class="col s12 m4">
+			<font size='5em'>
+			<p>내 정보</p>
+			</font>
 			<div class="card">
 				<div class="card user-info">
 					<% unless current_user.profile.url.nil? %>
@@ -12,19 +28,22 @@
 				<div class="card-content">
 					<div class="card-title"><%= current_user.name %></div>
 					<p>이메일 : <%= current_user.email %></p>
-					<p>올린 글 개수 : <%= @posts_count %></p>
-					<p>팔로워 : <%= current_user.followers.length %></p>
-					<p>팔로잉 : <%= current_user.followings.length %></p>
+					<p></p>
 					<%= link_to new_post_path do %>
-						<button class="btn">글쓰기</button>
+						<button class="btn purple">글 작성</button>
 					<% end %>
+											<div class="input-field">
+
+					<%= form_tag "tag", method: :get do %> 
+					<%=params[:contents] %>
+
+	                    </div>
+					<% end %>
+					
+
 				</div>
+				
 			</div>
-		</div>
-		<div class="col s12 m8">
-			<% @posts.each do |post| %>
-				<%= render partial: "post", object: post %>
-			<% end %>
 		</div>
 	</div>
 </div>

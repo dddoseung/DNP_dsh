@@ -5,16 +5,17 @@
                 <div class="card-title">새 글 작성하기</div>
                     <%= form_tag posts_path, multipart: true do %>
                         <!-- file 태그 추가 -->
+						
                         <div class="input-field">
                             <%= file_field_tag :image %>
                         </div>
                         
                         <div class="input-field">
-                            <%= text_area_tag :content, nil, class: "materialize-textarea", placeholder: "무슨 생각을 하고 있나요?" %>
+                            <%= text_area_tag :content, nil, class: "materialize-textarea", placeholder: "NEWS 내용 작성" %>
                         </div>
                         
                         <div class="input-field">
-                            <%= button_tag "작성하기", class: "btn" %>
+                            <%= button_tag "작성하기", class: "btn purple purple" %>
                         </div>
                     <% end %>
             </div>

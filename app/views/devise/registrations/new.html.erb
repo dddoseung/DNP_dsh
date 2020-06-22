@@ -1,14 +1,9 @@
-<h2>Sign up</h2>
+<h4><center><font color=orange>회원가입</font></center></h4>
 
 <div class="container">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= devise_error_messages! %>
     
-    <!-- file 태그 추가 -->
-    <div class="field">
-      <%= f.label :profile %><br />
-      <%= f.file_field :profile %>
-    </div>
   
     <div class="field">
       <%= f.label :email %><br />
@@ -18,7 +13,7 @@
     <div class="field">
       <%= f.label :password %>
       <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <em>(<%= @minimum_password_length %>글자 이상)</em>
       <% end %><br />
       <%= f.password_field :password, autocomplete: "new-password" %>
     </div>
@@ -34,7 +29,7 @@
     </div>
   
     <div class="actions">
-      <%= f.submit "Sign up" %>
+      <%= f.submit "회원가입" %>
     </div>
   <% end %>
   

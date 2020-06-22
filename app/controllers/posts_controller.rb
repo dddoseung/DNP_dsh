@@ -1,10 +1,25 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
   before_action :check_ownership, only: [:edit, :update, :destroy] 
   
   def index
     @posts = Post.all.order('created_at desc')
     @posts_count = current_user.posts.length
+  end
+  
+  def tag
+  end
+  
+  def hashtags
+      tag = Tag.find_by(name: params[:name])
+      @posts = tag.posts
+  end
+
+  def show 
+    @shows=Post.order('created_at desc') 
+    if user_signed_in? 
+     redirect_to posts_path 
+    end 
   end
   
   def new

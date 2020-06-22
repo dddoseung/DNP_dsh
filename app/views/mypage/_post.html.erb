@@ -9,12 +9,12 @@
 		<% if user_signed_in? && current_user != post.user %>
 			<% if current_user.followings.include?(post.user) %>
 				<%= form_tag follow_path(post.user.id), method: :delete, class: "right" do %>
-					<button class="btn"> 팔로우 취소</button>
+					<button class="btn purple purple"> 팔로우 취소</button>
 				<% end %>
 			<% else %>
 				<%= form_tag follows_path, method: :post, class: "right" do %>
 					<input type="hidden" name="followed_id" value="<%= post.user.id %>">
-					<button class="btn"> 팔로우</button>
+					<button class="btn purple purple"> 팔로우</button>
 				<% end %>
 			<% end %>
 		<% else %>
@@ -32,15 +32,12 @@
 	</div>
 
 	<div class="card-action">
-		<%= post.likes.size %> 명이 좋아합니다.
-        <% if current_user.is_like?(post) %>
-	        <%= link_to "좋아요 취소", post_like_path(post), method: "post" %>
-        <% else %>
-	        <%= link_to "좋아요", post_like_path(post), method: "post" %>
-        <% end %>
+		
+        
+        
 		<% if current_user.id == post.user.id %>
 		    <%= link_to "삭제", post_path(post), method: "delete", class: "right" %>
-            <%= link_to "수정", edit_post_path(post), class: "right"%>
+            <%= link_to "글 수정", edit_post_path(post), class: "right"%>
         <% end %>
 		
 		<%= form_tag post_comments_path(post) do %>
@@ -48,7 +45,7 @@
 			<%= text_area_tag :content, nil, class: "materialize-textarea", placeholder: "댓글을 작성해주세요.", required: true %>
 		</div>
 		<div class="input-field">
-			<%= button_tag "댓글 쓰기", class: "btn" %>
+			<%= button_tag "댓글 등록", class: "btn pink" %>
 		</div>
 		<% end %>
 		<% if post.comments.present? %>

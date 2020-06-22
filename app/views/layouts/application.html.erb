@@ -1,46 +1,76 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>S/E_Project_SNS</title>
+    <title>Dongguk NEWS Portal_DSH</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <body></body>
+    <style type="text/css">
+      #sidebanner { position:fixed; top:70px; left:50%; margin-left:550px; width:200px; height:600px; background:#FFFFFF; }
+    </style>
   </head>
 
   <body>
+  <font face='카페24 당당해'>
     <nav>
-      <div class="nav-wrapper">
-        <a href="/" class="brand-logo">Software Engineering Project</a>
+      <div class="nav-wrapper purple">
+		  <ul class="left hide-on-med-and-down">
+        <a href="/" class="brand-logo"><i class="large material-icons"></i>Dongguk News Portal에 오신 것을 환영합니다!</a>
+	      </ul>
         <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+
         <ul class="right hide-on-med-and-down">
-          <li><a href="/posts">Post</a></li>
           <% if user_signed_in? %>
-            <li><%= current_user.name %> </li>
-            <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
-            <li><%= link_to 'Edit', edit_user_registration_path, method: 'get' %></li>
-            <li><a href="/mypage">Mypage</a></li>
+            <li><%= current_user.name %> 로그인 하였습니다. </li>
+	
+			<li><b><a href="/mypage">내 뉴스 관리하기</a></b></li>
+			<li><b><%= link_to '로그아웃', destroy_user_session_path, method: 'delete' %></b></li>
           <% else %>
-            <li><%= link_to 'Sign in', new_user_session_path, method: 'get' %></li>
-            <li><%= link_to 'Sign up', new_user_registration_path, method: 'get' %></li>
+            <li><%= link_to '로그인', new_user_session_path, method: 'get' %></li>
+            <li><%= link_to '회원가입', new_user_registration_path, method: 'get' %></li>
           <% end %>
         </ul>
       </div>
     </nav>
+    
+    <%= form_with url: search_path, method: :get, local: true, class: 'form-inline search-form' do |form| %>
+
+<% end %>
   
     <ul class="sidenav" id="mobile-demo">
           <li><a href="/posts">Post</a></li>
           <% if user_signed_in? %>
-            <li><%= link_to 'Sign out', destroy_user_session_path, method: 'delete' %></li>
+            <li><%= link_to '로그아웃', destroy_user_session_path, method: 'delete' %></li>
             <li><%= link_to 'Edit', edit_user_registration_path, method: 'get' %></li>
             <li><a href="/mypage">Mypage</a></li>
           <% else %>
-            <li><a href="/users/sign_in">Sign in</a></li>
-            <li><a href="/users/sign_up">Sign up</a></li>
+            <li><a href="/users/sign_in">로그인</a></li>
+            <li><a href="/users/sign_up">회원가입</a></li>
           <% end %>
     </ul>
+    
     <%= yield %>
+     <% if user_signed_in? %>
+     
+    <% end %>
+  </font>
   </body>
+  
+  <footer class="right page-footer white darken-3">
+    <div class="container">
+      <div class="row">
+        <div class="col l0 s12">
+          <h5 class="black-text">Dongguk NEWS Portal </h5>
+          <p class="grey-text text-lighten-4"> </p>
+		  <a class="black-text text-lighten-3">2020 DNP Made by SeungHyun Do</a>
+        </div>
+      </div>
+    </div>
+
+  </footer>
 </html>

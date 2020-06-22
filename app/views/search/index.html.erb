@@ -1,0 +1,106 @@
+<div class="search-page">
+  <% if @posts.exists? %>
+    <h1>Searched Posts</h1>
+  <% else %>
+    <h1>Oop! No matching posts ...</h1>
+  <% end %>
+<div class="user-images">
+    <% @posts.each do |post|%>
+    <div class="container">
+	<div class="row">
+      <div class="col s12 m10">
+        
+        <div class="card">
+	<div class="card-content">
+		<!-- 유저 이미지 썸네일 출력 -->
+		<% if post.user.profile %>
+			<img class="circle thumbnail" src="<%= post.user.profile.thumb.url %>" />
+		<% end %>
+		<span class="card-title"> <%= post.user.name %> </span>
+		<span><%= post.created_at %></span>
+  
+		<% if user_signed_in? && current_user != post.user %>
+			<% if current_user.followings.include?(post.user) %>
+				<%= form_tag follow_path(post.user.id), method: :delete, class: "right" do %>
+					<button class="btn purple purple"> 팔로우 취소</button>
+				<% end %>
+			<% else %>
+				<%= form_tag follows_path, method: :post, class: "right" do %>
+					<input type="hidden" name="followed_id" value="<%= post.user.id %>">
+					<button class="btn purple purple"> 팔로우</button>
+				<% end %>
+			<% end %>
+		<% else %>
+		<% end %>
+		<p class="pre-line"><%= post.content %></p>
+		<div class="card post" data-post-id="<%= post.id %>">
+			<div class="card-image">
+				<% if post.image.url %>
+					<img src="<%= post.image.url %>" />
+				<% end %>
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="card-action">
+		<%= post.likes.size %> 명이 좋아합니다.
+        <% if current_user.is_like?(post) %>
+	        <%= link_to post_like_path(post), method: "post" do %>
+	        	<i class="material-icons light-blue-text text-lighten-1">thumb_up</i>
+	        <% end %>
+        <% else %>
+	        <%= link_to post_like_path(post), method: "post" do %>
+	        	<i class="material-icons grey-text text-lighten-1">thumb_up</i>
+	        <% end %>
+	        
+        <% end %>
+       	<%= post.dislikes.size %> 명이 싫어합니다.
+         <% if current_user.is_dislike?(post) %>
+	        <%= link_to post_dislike_path(post), method: "post" do %>
+	        	<i class="material-icons light-blue-text text-lighten-1">thumb_down</i>
+	        <% end %>
+        <% else %>
+	        <%= link_to post_dislike_path(post), method: "post" do %>
+	        	<i class="material-icons grey-text text-lighten-1">thumb_down</i>
+	        <% end %>
+        <% end %>
+        
+        <% if current_user.id == post.user.id %>
+		    <%= link_to "삭제", post_path(post), method: "delete", class: "right" %>
+            <%= link_to "글 수정", edit_post_path(post), class: "right"%>
+        <% end %>
+        
+		<%= form_tag post_comments_path(post) do %>
+		<div class="input-field">
+			<%= text_area_tag :content, nil, class: "materialize-textarea", placeholder: "댓글을 작성해주세요.", required: true %>
+		</div>
+		<div class="input-field" >
+			<%= button_tag "댓글 등록", class: "btn purple purple" %>
+		</div>
+		<% end %>
+		<% if post.comments.present? %>
+			<ul class="collection">
+				<% post.comments.each do |comment| %>
+				<li class="collection-item">
+					<span class="title"><%= comment.user.name %></span>
+					<span class="right"><%= comment.created_at %></span>
+					<p class="pre-line"><%= comment.content %></p>
+					<% if comment.user.id == current_user.id %>
+					<div><%= link_to "삭제", post_comment_path(post, comment), method: "delete" %></div>
+					<% end %>
+				</li>
+			<% end %>
+			</ul>
+		<% end %>
+		
+	</div>
+</div>
+</div>
+</div>
+        
+        
+      </div>
+    <% end %>
+  </div>
+</div>
